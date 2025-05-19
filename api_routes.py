@@ -165,6 +165,7 @@ if __name__ == "__main__":
         return f"# {module_name.replace('_', ' ').title()}\n\n'''\nAuto-generated module for {module_name}\n'''\n\n# Add your code here\n"
 
 def setup_routes(app):
+    print("✅ setup_routes called!")
     @app.route('/api/health', methods=['GET'])
     def health_check():
         return jsonify({
