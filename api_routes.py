@@ -172,5 +172,3 @@ def setup_routes(app):
             "message": "Nepantla API is operational",
             "timestamp": datetime.datetime.utcnow().isoformat()
         })
-
-    # Other routes omitted here for brevity, but should be included in full project
