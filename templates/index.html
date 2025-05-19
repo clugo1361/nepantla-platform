@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}Nepantla Mental Health System - Home{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-dark">
+            <div class="card-body">
+                <h1 class="card-title">
+                    <i class="fas fa-code-branch me-2"></i>
+                    Nepantla API Platform
+                </h1>
+                <p class="card-text lead">A secure Flask-based API platform for the Nepantla mental health system enabling AI agent Amaru to interact with the codebase.</p>
+                <a href="/api/docs" class="btn btn-outline-light">View API Documentation</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6 mb-3 mb-md-0">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-shield-alt me-2"></i>
+                    Security Features
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">API Key Authentication</li>
+                    <li class="list-group-item">Request Logging and Monitoring</li>
+                    <li class="list-group-item">Path Traversal Protection</li>
+                    <li class="list-group-item">Detailed Error Handling</li>
+                    <li class="list-group-item">Secure File Operations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-plug me-2"></i>
+                    API Endpoints
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">
+                                <span class="badge bg-success me-2">POST</span>
+                                /api/write
+                            </h6>
+                        </div>
+                        <small class="text-muted">Write content to files securely</small>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">
+                                <span class="badge bg-info me-2">GET</span>
+                                /api/health
+                            </h6>
+                        </div>
+                        <small class="text-muted">Check system health status</small>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">
+                                <span class="badge bg-info me-2">GET</span>
+                                /api/docs
+                            </h6>
+                        </div>
+                        <small class="text-muted">API documentation and usage guide</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card bg-dark">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-code me-2"></i>
+                    Usage Example
+                </h5>
+            </div>
+            <div class="card-body">
+                <pre class="bg-dark text-light p-3 rounded"><code>
+# Python example using requests library
+import requests
+import json
+
+headers = {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+}
+
+data = {
+    'filename': 'example.py',
+    'content': 'print("Hello from Nepantla API")'
+}
+
+response = requests.post(
+    'https://your-api-domain.com/api/write',
+    headers=headers,
+    data=json.dumps(data)
+)
+
+print(response.json())
+                </code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
