@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Nepantla Mental Health System - User Profile{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-user-circle me-2"></i> User Profile</h3>
+            </div>
+            <div class="card-body">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Account Details</h5>
+                        <p><strong>Username:</strong> {{ current_user.username }}</p>
+                        <p><strong>Email:</strong> {{ current_user.email }}</p>
+                        <p><strong>Member since:</strong> {{ current_user.created_at.strftime('%B %d, %Y') }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Account Status</h5>
+                        <p><span class="badge {% if current_user.is_active %}bg-success{% else %}bg-danger{% endif %}">
+                            {% if current_user.is_active %}Active{% else %}Inactive{% endif %}
+                        </span></p>
+                        {% if current_user.is_admin %}
+                        <p><span class="badge bg-info">Administrator</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if current_user.journal_entries %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-book me-2"></i> Recent Journal Entries</h3>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for entry in current_user.journal_entries[:5] %}
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ entry.title }}</h5>
+                            <small>{{ entry.created_at.strftime('%m/%d/%Y') }}</small>
+                        </div>
+                        <p class="mb-1">{{ entry.content[:100] }}{% if entry.content|length > 100 %}...{% endif %}</p>
+                        <small>Mood: {{ entry.mood_score if entry.mood_score else 'Not recorded' }}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-key me-2"></i> Change Password</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('auth.change_password') }}">
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
